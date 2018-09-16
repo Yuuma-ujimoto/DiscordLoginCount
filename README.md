@@ -1,0 +1,2 @@
+# DiscordLoginCount
+mysqlでdiscordサーバーでの発言回数発言文字数発言日数を集計してくれるbot
