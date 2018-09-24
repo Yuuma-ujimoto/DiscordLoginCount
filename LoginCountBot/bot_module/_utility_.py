@@ -10,8 +10,9 @@ class Utillity:
     def time_list(self):
         l = [self.m, self.d]
         return l
-    '''def write_log(self,log,l):
-        f = codecs.open("../log/"+l,"a", 'utf-8')
-        f.write(log)
+    def _log_(self,file_name, log_message):
+        path = "../log/" + file_name + ".txt"
+        f = codecs.open(path, "a", 'utf-8')
+        f.write(log_message)
         f.close()
-       '''
+
