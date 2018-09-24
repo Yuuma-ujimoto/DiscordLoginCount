@@ -74,17 +74,11 @@ class DiscordLog:
     def __init__(self):
         pass
     def user_log(self,log):
-        f = codecs.open("../log/user_log.txt", "a", 'utf-8')
-        f.write(log)
-        f.close()
+        _lof_("user_log",log)
     def cmd_log(self,log):
-        f = codecs.open("../log/cmd_log.txt", "a", 'utf-8')
-        f.write(log)
-        f.close()
+        _lof_("cmd_log",log)
     def tlogin_log(self,log):
-        f = codecs.open("../log/login_log.txt", "a", 'utf-8')
-        f.write(log)
-        f.close()
+        _lof_("login_log",log)
 class DiscrdCount:
     def __init__(self):
         pass
@@ -103,3 +97,8 @@ def sql_execute(sql_):
     except:
         sqlconnect.rollback()
         raise
+def _lof_(file_name,log_message):
+    path = "../log"+file_name+".txt"
+    f = codecs.open(path, "a", 'utf-8')
+    f.write(log_message)
+    f.close()
