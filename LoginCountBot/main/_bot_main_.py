@@ -5,7 +5,7 @@ from bot_module._module_ import DiscordCmd as cmd
 from bot_module._module_ import DiscordLog as log
 from bot_module._module_ import DiscrdCount as count
 from bot_module._utility_ import Utillity as ut
-
+import config._config_ as config
 
 client = discord.Client()
 #discordクライアントに接続
@@ -20,9 +20,9 @@ today_id_list = dl().today_login_menber()
 #list設定
 @client.event
 async def on_ready():
-    print('|-----------|')
-    print('|ログイン完了|')
-    print('|-----------|')
+
+    print('ログイン完了')
+
 @client.event
 async def on_message(message):
 
@@ -39,7 +39,6 @@ async def on_message(message):
     if message.server != None:#DMに送った場合は無視する
         server_id = str(message.server.id)
         if tl[0] != nt[0] or tl[1] != nt[1]:#日付が変更された場合
-            print(tl, nt)
             tl = ut().time_list()#日付更新
             today_id_list = []
             print("日付変更")
@@ -68,31 +67,40 @@ async def on_message(message):
         
         #command
         if message.content==".mc":
-
             log_ = ".mc\t"+sender.name+str(n)+"\n"
             print(log_,end="")
             log().cmd_log(log_)
-
             await client.send_message(message.channel, cmd().mc(user_id, server_id))
-        elif message.content==".lc":
 
+        elif message.content==".lc":
             log_ = ".lc\t"+sender.name+str(n)+"\n"
             print(log_,end="")
             log().cmd_log(log_)
-
             await client.send_message(message.channel,cmd().lc(user_id, server_id))
-        elif message.content==".md":
 
+        elif message.content==".md":
             log_ = ".md\t"+sender.name+str(n)+"\n"
             print(log_,end="")
             log().cmd_log(log_)
-
             await client.send_message(message.channel, cmd().md(user_id, server_id))
+
+        elif message.content == ".update":
+            log_ = ".update\t"+sender.name+str(n)+"\n"
+            print(log_,end="")
+            log().cmd_log(log_)
+            await client.send_message(message.channel, cmd().update(sender.name,user_id))
+
+        elif message.content ==".github":
+            log_ = ".github\t"+sender.name+str(n)+"\n"
+            print(log_,end="")
+            log().cmd_log(log_)
+            await client.send_message(message.channel,"https://github.com/YuumaOwen/DiscordLoginCount")
+
         elif message.content==".help":
             log_ = ".help\t"+sender.name+str(n)+"\n"
             print(log_,end="")
             log().cmd_log(log_)
-            await client.send_message(message.channel,cmd().help())
+            await client.send_message(message.channel, cmd().help())
 
-        
-client.run("ここにbotのトークンを入れる")
+
+client.run(config.token)

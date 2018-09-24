@@ -1,5 +1,5 @@
 import datetime
-
+import codecs
 #Botのメインにはならないが便利な関数はここで
 class Utillity:
     def __init__(self):
@@ -15,4 +15,3 @@ class Utillity:
         f = codecs.open(path, "a", 'utf-8')
         f.write(log_message)
         f.close()
-

@@ -3,18 +3,12 @@ import datetime
 import codecs
 import bot_module._utility_ as ut
 import config._config_ as config
-
-sqlconnect = mysql.connector.connect(user=config.user, password=config.password, host=config.host,
-                                          database=config.database)
-
-
 #Botのメインになる関数
 class DiscordList:
     def __init__(self):
-        global sqlconnect
-
+        self.sqlconnect = mysql.connector.connect(user = config.user,password= config.password,host= config.host, databese = config.database)
         #mysqlサーバー接続
-        self.cur = sqlconnect.cursor()
+        self.cur = self.sqlconnect.cursor()
         #cursor設定
     def login_menber(self):
         l = []
@@ -33,10 +27,9 @@ class DiscordList:
         return l
 class DiscordCmd:
     def __init__(self):
-        #self.sqlconnect = mysql.connector.connect(user=config.user, password=config.password, host=config.host,database=config.database)
+        self.sqlconnect = mysql.connector.connect(config.user, config.password, config.host, config.database)
         #mysqlサーバー接続
-        global sqlconnect
-        self.cur = sqlconnect.cursor()
+        self.cur = self.sqlconnect.cursor()
     def new_menber(self,user_name,user_id,server_id,len):
         dt = ut.Utillity().time_list()
         sql_execute("insert into discord Value("
@@ -59,8 +52,8 @@ class DiscordCmd:
         x = self.cur.fetchall()
         m = "```"+str(x[0][0])+"さんの一日当たりの平均発言回数は"+str(x[0][2]//x[0][1])+"です。```"
         return m
-    def update(self,user_name,user_id):
-        sql_execute("update discord set user_name = '{0}' where user_id = '{1}'".format(user_name,user_id))
+    def update(self,user_name,user_id,server_id):
+        sql_execute("update discord set user_name = '{0}' where user_id ='{1}' and server_id = '{2}'".format(user_name,user_id,server_id))
         m = "```ユーザー名を更新しました```"
         return m
     def help(self):
@@ -74,22 +67,31 @@ class DiscordLog:
     def __init__(self):
         pass
     def user_log(self,log):
-        _lof_("user_log",log)
+        f = codecs.open("../log/user_log.txt", "a", 'utf-8')
+        f.write(log)
+        f.close()
     def cmd_log(self,log):
-        _lof_("cmd_log",log)
+        f = codecs.open("../log/cmd_log.txt", "a", 'utf-8')
+        f.write(log)
+        f.close()
     def tlogin_log(self,log):
-        _lof_("login_log",log)
+        f = codecs.open("../log/login_log.txt", "a", 'utf-8')
+        f.write(log)
+        f.close()
 class DiscrdCount:
     def __init__(self):
-        pass
+        self.sqlconnect = mysql.connector.connect(config.user, config.password, config.host, config.database)
+        #mysqlサーバー接続
+        self.cur = self.sqlconnect.cursor()
 
     def word_count(self,user_id,server_id,len):
         sql_execute("update discord set message_count = message_count+1,word_count = word_count+{0} where user_id ='{1}' and server_id = '{2}'".format(len,user_id,server_id))
     def login_count(self,user_id,server_id):
         dt = ut.Utillity().time_list()
         sql_execute("update discord set login_count = login_count+1,month = {0},day = {1} where user_id ='{2}' and server_id = '{3}'".format(dt[0],dt[1],user_id,server_id))
+
 def sql_execute(sql_):
-    global sqlconnect
+    sqlconnect = mysql.connector.connect(config.user, config.password, config.host, config.database)
     cur = sqlconnect.cursor()
     try:
         cur.execute(sql_)
