@@ -1,7 +1,7 @@
 import datetime
 
 #Botのメインにはならないが便利な関数はここで
-class _utillity_:
+class Utillity:
     def __init__(self):
         self.n = datetime.datetime.now()
         self.m = self.n.month
