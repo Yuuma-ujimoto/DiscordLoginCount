@@ -1,10 +1,11 @@
 import discord
 import datetime
-from bot_module._module_ import discord_list as dl
-from bot_module._module_ import discord_cmd as cmd
-from bot_module._module_ import discord_log as log
-from bot_module._module_ import discrd_count as count
-from bot_module._utility_ import _utillity_ as ut
+from bot_module._module_ import DiscordList as dl
+from bot_module._module_ import DiscordCmd as cmd
+from bot_module._module_ import DiscordLog as log
+from bot_module._module_ import DiscrdCount as count
+from bot_module._utility_ import Utillity as ut
+
 
 client = discord.Client()
 #discordクライアントに接続
