@@ -72,35 +72,40 @@ async def on_message(message):
             log().cmd_log(log_)
             await client.send_message(message.channel, cmd().mc(user_id, server_id))
 
-        elif message.content==".lc":
+        if message.content==".lc":
             log_ = ".lc\t"+sender.name+str(n)+"\n"
             print(log_,end="")
             log().cmd_log(log_)
             await client.send_message(message.channel,cmd().lc(user_id, server_id))
 
-        elif message.content==".md":
+        if message.content==".md":
             log_ = ".md\t"+sender.name+str(n)+"\n"
             print(log_,end="")
             log().cmd_log(log_)
             await client.send_message(message.channel, cmd().md(user_id, server_id))
 
-        elif message.content == ".update":
+        if message.content == ".update":
             log_ = ".update\t"+sender.name+str(n)+"\n"
             print(log_,end="")
             log().cmd_log(log_)
             await client.send_message(message.channel, cmd().update(sender.name,user_id))
 
-        elif message.content ==".github":
+        if message.content ==".github":
             log_ = ".github\t"+sender.name+str(n)+"\n"
             print(log_,end="")
             log().cmd_log(log_)
             await client.send_message(message.channel,"https://github.com/YuumaOwen/DiscordLoginCount")
 
-        elif message.content==".help":
+        if message.content==".help":
             log_ = ".help\t"+sender.name+str(n)+"\n"
             print(log_,end="")
             log().cmd_log(log_)
             await client.send_message(message.channel, cmd().help())
+        if message.content=='.searchlog':
+            log_ = ".searchlog\t" + sender.name + str(n) + "\n"
+            print(log_, end="")
+            log().cmd_log(log_)
+            await client.send_message(message.channel,ut().searchlog(sender.name))
 
 
 client.run(config.token)
