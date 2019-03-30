@@ -1,5 +1,5 @@
 # DiscordLoginCount
-mysqlでdiscordサーバーでの発言回数発言文字数発言日数を集計してくれるbot
+mysqlでdiscordサーバーでの発言回数・発言文字数・発言日数を集計してくれるbot
 
 mainにあるファイルでbotが起動します。
 logにはユーザーのコマンドの履歴やデータ作成の記録が書き込まれます。
